@@ -1,4 +1,4 @@
-const CACHE_NAME = "mypuzzles-v2";
+const CACHE_NAME = "mypuzzles-v3";
 
 const FILES_TO_CACHE = [
   "./",
