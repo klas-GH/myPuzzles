@@ -1,0 +1,579 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  background: #111827;
+
+  font-family: Arial, sans-serif;
+
+  transition: background 0.25s ease;
+}
+
+.game {
+  width: min(92vw, 400px);
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 18px;
+
+  color: #ffffff;
+
+  font-size: 28px;
+}
+
+/* --------------------------------
+   Difficulty
+-------------------------------- */
+
+.difficulty {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.difficulty-button {
+  border: 0;
+  border-radius: 8px;
+
+  padding: 9px 5px;
+
+  background: #374151;
+  color: #9ca3af;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.difficulty-button.active {
+  background: var(--accent);
+  color: white;
+}
+
+.difficulty-button:active {
+  transform: scale(0.96);
+}
+
+
+/* --------------------------------
+   Themes
+-------------------------------- */
+
+.themes {
+  display: none;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.themes.visible {
+  display: grid;
+}
+
+.theme-button {
+  border: 0;
+  border-radius: 7px;
+
+  padding: 7px 3px;
+
+  background: var(--panel);
+  color: var(--text-muted);
+
+  font-size: 12px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.theme-button.active {
+  background: var(--accent);
+  color: white;
+}
+
+.theme-button.locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+
+/* --------------------------------
+   Controls
+-------------------------------- */
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+  gap: 10px;
+}
+
+.shuffle {
+  border: 0;
+  border-radius: 9px;
+
+  padding: 10px 16px;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: transform 0.1s ease;
+}
+
+.shuffle:active {
+  transform: scale(0.95);
+}
+
+
+/* --------------------------------
+   Scores
+-------------------------------- */
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.best,
+.moves {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+/* --------------------------------
+   Board
+-------------------------------- */
+
+
+
+.mystery-goal {
+  display: none;
+
+  margin-bottom: 10px;
+  padding: 7px;
+
+  text-align: center;
+
+  background: var(--panel);
+  color: var(--text-muted);
+
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.mystery-goal.visible {
+  display: block;
+}
+
+
+/* --------------------------------
+   Mystery board rotation
+-------------------------------- */
+
+.board.mystery-rotating {
+  transform: rotate(90deg);
+}
+
+.board {
+  width: 100%;
+  aspect-ratio: 1;
+
+  padding: 6px;
+
+  display: grid;
+  gap: 6px;
+
+  background: var(--board);
+  border-radius: 14px;
+
+  transition:
+    background 0.25s ease,
+    transform 0.45s ease;
+}
+
+
+/* --------------------------------
+   Tiles
+-------------------------------- */
+
+.tile {
+  display: grid;
+  place-items: center;
+
+  background: var(--tile);
+  color: var(--tile-text);
+
+  font-size: clamp(20px, 8vw, 36px);
+  font-weight: bold;
+
+  border-radius: 9px;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform 0.14s ease,
+    background 0.25s ease;
+}
+
+.tile:active {
+  transform: scale(0.93);
+}
+
+
+/* Empty cell */
+
+.empty {
+  background: var(--empty);
+  cursor: default;
+}
+
+
+/* --------------------------------
+   Illegal move
+-------------------------------- */
+
+.tile.shake {
+  animation: shake 0.22s ease;
+}
+
+@keyframes shake {
+
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-5px);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-4px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+
+/* --------------------------------
+   Win animation
+-------------------------------- */
+
+.tile.win {
+  animation: winTile 0.45s ease;
+  background: var(--win);
+}
+
+@keyframes winTile {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* --------------------------------
+   Unlock message
+-------------------------------- */
+
+.unlock-message {
+  display: none;
+
+  margin-top: 10px;
+
+  padding: 10px;
+
+  text-align: center;
+
+  color: var(--win);
+
+  background: var(--panel);
+
+  border-radius: 9px;
+
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+/* --------------------------------
+   Win screen
+-------------------------------- */
+
+.win-message {
+  display: none;
+
+  margin-top: 14px;
+  padding: 18px;
+
+  text-align: center;
+
+  background: var(--panel);
+
+  border: 1px solid var(--board);
+
+  border-radius: 14px;
+}
+
+.win-title {
+  color: var(--win);
+
+  font-size: 25px;
+  font-weight: bold;
+
+  margin-bottom: 14px;
+}
+
+.win-stats {
+  display: flex;
+  justify-content: center;
+
+  gap: 35px;
+
+  color: var(--text-muted);
+
+  font-size: 14px;
+}
+
+.win-stats strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--text);
+
+  font-size: 22px;
+}
+
+.new-puzzle {
+  margin-top: 16px;
+
+  border: 0;
+  border-radius: 9px;
+
+  padding: 10px 18px;
+
+  background: var(--accent);
+  color: white;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.new-puzzle:active {
+  transform: scale(0.95);
+}
+
+/*
+
+home-btn 
+*/
+.home-btn {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: 12px;
+
+  z-index: 1000;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 11px;
+
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+
+  background: rgba(15,18,32,.82);
+  color: rgba(255,255,255,.8);
+
+  text-decoration: none;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 4px 18px rgba(0,0,0,.2);
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    color .15s ease;
+}
+
+.home-btn svg {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+  stroke: currentColor;
+
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-btn:active {
+  transform: scale(.93);
+}
+
+.home-btn:hover {
+  background: rgba(255,255,255,.1);
+  color: white;
+}
+
+
+/* =================================
+   THEMES
+================================= */
+
+
+/* Classic */
+
+body[data-theme="classic"] {
+  --accent: #60a5fa;
+  --board: #374151;
+  --tile: #60a5fa;
+  --tile-text: #ffffff;
+  --empty: #555555;
+  --panel: #1f2937;
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+  --win: #4ade80;
+}
+
+
+/* Neon */
+
+body[data-theme="neon"] {
+  --accent: #c026d3;
+  --board: #291338;
+  --tile: #a855f7;
+  --tile-text: #ffffff;
+  --empty: #17101d;
+  --panel: #24112f;
+  --text: #ffffff;
+  --text-muted: #d8b4fe;
+  --win: #22d3ee;
+}
+
+
+/* Forest */
+
+body[data-theme="forest"] {
+  --accent: #22c55e;
+  --board: #24372b;
+  --tile: #16a34a;
+  --tile-text: #ffffff;
+  --empty: #17231b;
+  --panel: #1d3024;
+  --text: #ffffff;
+  --text-muted: #a7c9ae;
+  --win: #bef264;
+}
+
+
+/* Sunset */
+
+body[data-theme="sunset"] {
+  --accent: #f97316;
+  --board: #43251f;
+  --tile: #f97316;
+  --tile-text: #ffffff;
+  --empty: #241512;
+  --panel: #351d19;
+  --text: #ffffff;
+  --text-muted: #fdba74;
+  --win: #facc15;
+}
+
+
+/* --------------------------------
+   Small screens
+-------------------------------- */
+
+@media (max-width: 350px) {
+
+  .difficulty {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .controls {
+    align-items: flex-start;
+  }
+
+  .stats {
+    justify-content: flex-end;
+  }
+
+  .best,
+  .moves {
+    font-size: 13px;
+  }
+
+  .difficulty-button {
+    font-size: 13px;
+  }
+
+  .theme-button {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,1296 @@
+/* =========================================================
+   PATTERN MEMORY
+   BUILD 6 — ANIMATION / GAME FEEL
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background: #0d1016;
+  color: #fff;
+
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  user-select: none;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+  width: 100%;
+  max-width: 480px;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0 auto;
+
+  padding:
+    18px 16px
+    max(12px, env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 28px;
+  line-height: 1.05;
+
+  font-weight: 850;
+  letter-spacing: -0.8px;
+}
+
+.subtitle {
+  margin: 5px 0 0;
+
+  color: #7f899b;
+  font-size: 13px;
+}
+
+
+.home-btn {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: 12px;
+
+  z-index: 1000;
+
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+
+  background: rgba(15,18,32,.82);
+  color: rgba(255,255,255,.8);
+
+  text-decoration: none;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.home-btn svg {
+  width: 18px;
+  height: 18px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-btn:active {
+  transform: scale(.92);
+}
+
+
+
+.home-btn:hover {
+  background: rgba(255,255,255,.1);
+  color: white;
+}
+
+
+/* =========================================================
+   DIFFICULTY
+   ========================================================= */
+
+.difficulty {
+  margin-top: 14px;
+}
+
+.difficulty-title {
+  margin: 0 0 7px;
+
+  text-align: center;
+
+  color: #707b8d;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.difficulty-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.difficulty-button {
+  min-height: 47px;
+
+  padding: 5px;
+
+  border: 1px solid #303744;
+  border-radius: 12px;
+
+  background: #191e27;
+  color: #a7afbd;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  transition:
+    transform 120ms cubic-bezier(.2,.8,.2,1),
+    background 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.difficulty-button:active {
+  transform: scale(.94);
+}
+
+.difficulty-button .mode-name {
+  display: block;
+
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.difficulty-button .mode-size {
+  display: block;
+
+  margin-top: 1px;
+
+  color: #7f899b;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.difficulty-button.easy.active {
+  background: #245c45;
+  border-color: #43c979;
+
+  box-shadow:
+    0 0 14px rgba(67,201,121,.12);
+}
+
+.difficulty-button.normal.active {
+  background: #67551f;
+  border-color: #e3c34d;
+
+  box-shadow:
+    0 0 14px rgba(227,195,77,.12);
+}
+
+.difficulty-button.hard.active {
+  background: #632c39;
+  border-color: #f05b72;
+
+  box-shadow:
+    0 0 14px rgba(240,91,114,.12);
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 6px;
+
+  margin-top: 9px;
+}
+
+.stat {
+  padding: 6px 4px;
+
+  border: 1px solid #252b35;
+  border-radius: 10px;
+
+  background: #151a22;
+
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+
+  color: #707b8d;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  display: block;
+
+  margin-top: 1px;
+
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 850;
+}
+
+#streakValue {
+  color: #ffb84d;
+}
+
+/* =========================================================
+   PROGRESSION
+   ========================================================= */
+
+.progression {
+  margin-top: 7px;
+
+  padding: 7px 10px;
+
+  border: 1px solid #252b35;
+  border-radius: 10px;
+
+  background: #11151d;
+}
+
+
+/* Top row */
+
+.progression-top {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+}
+
+
+#progressionLabel {
+  color: #687386;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: .8px;
+}
+
+
+#progressionRound {
+  color: #c8cfda;
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+
+/* Track */
+
+.progress-track {
+  width: 100%;
+  height: 5px;
+
+  overflow: hidden;
+
+  border-radius: 99px;
+
+  background: #202631;
+}
+
+
+/* Filled progress */
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #4d8dff,
+      #6ca5ff
+    );
+
+  transition:
+    width 350ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   MILESTONE MESSAGE
+   ========================================================= */
+
+.milestone-message {
+  min-height: 22px;
+
+  margin-bottom: 10px;
+
+  color: #ffd45c;
+
+  font-size: 13px;
+  font-weight: 850;
+
+  opacity: 0;
+}
+
+
+.milestone-message.show {
+  opacity: 1;
+
+  animation:
+    milestonePop 500ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   MILESTONE GRID EFFECT
+   ========================================================= */
+
+.grid.milestone {
+  animation:
+    milestoneGrid 550ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes milestonePop {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(6px)
+      scale(.85);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1.08);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+@keyframes milestoneGrid {
+
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.035);
+  }
+
+  55% {
+    transform: scale(.985);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+/* =========================================================
+   BEST STATS
+   ========================================================= */
+
+.best-stats {
+  display: flex;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 6px;
+}
+
+.best-stat {
+  min-width: 120px;
+
+  padding: 5px 10px;
+
+  border-radius: 9px;
+
+  background: #11151d;
+
+  text-align: center;
+}
+
+.best-label {
+  display: block;
+
+  color: #596476;
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.best-value {
+  display: block;
+
+  margin-top: 1px;
+
+  color: #d9dee8;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+   ========================================================= */
+
+.status {
+  min-height: 30px;
+
+  margin-top: 7px;
+
+  text-align: center;
+}
+
+.message {
+  min-height: 22px;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.message.success-message {
+  color: #5bdf91;
+
+  animation:
+    messagePop 300ms ease;
+}
+
+.message.fail-message {
+  color: #f05b72;
+
+  animation:
+    messagePop 300ms ease;
+}
+
+
+/* =========================================================
+   GAME AREA
+   ========================================================= */
+
+.game-area {
+  flex: 1;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: 0;
+}
+
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.grid {
+  --grid-size:
+    min(
+      88vw,
+      360px,
+      calc(100dvh - 350px)
+    );
+
+  width: var(--grid-size);
+  height: var(--grid-size);
+
+  flex-shrink: 1;
+
+  display: grid;
+
+  gap: 7px;
+
+  touch-action: manipulation;
+
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+
+/* =========================================================
+   ROUND TRANSITION
+   ========================================================= */
+
+.grid.round-start {
+  animation:
+    gridEnter 280ms cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   TILES
+   ========================================================= */
+
+.tile {
+  min-width: 0;
+  min-height: 0;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #202631;
+
+  box-shadow:
+    inset 0 1px 0
+    rgba(255,255,255,.04);
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+
+  transform: scale(1);
+
+  transition:
+    transform 100ms cubic-bezier(.2,.8,.2,1),
+    background 140ms ease,
+    box-shadow 140ms ease,
+    opacity 140ms ease;
+}
+
+
+/* =========================================================
+   TAP FEEDBACK
+   ========================================================= */
+
+.tile:active {
+  transform: scale(.86);
+}
+
+
+/* =========================================================
+   PATTERN REVEAL
+   ========================================================= */
+
+.tile.pattern {
+  background: #4d8dff;
+
+  box-shadow:
+    0 0 18px rgba(77,141,255,.42),
+    inset 0 1px 0
+    rgba(255,255,255,.25);
+
+  animation:
+    patternReveal 220ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/*
+ * Slightly stagger pattern tiles.
+ * The nth-child rules create a small
+ * wave rather than every tile appearing
+ * at exactly the same instant.
+ */
+
+.tile.pattern:nth-child(2n) {
+  animation-delay: 20ms;
+}
+
+.tile.pattern:nth-child(3n) {
+  animation-delay: 40ms;
+}
+
+.tile.pattern:nth-child(5n) {
+  animation-delay: 60ms;
+}
+
+
+/* =========================================================
+   PLAYER SELECTION
+   ========================================================= */
+
+.tile.selected {
+  background: #5bdf91;
+
+  box-shadow:
+    0 0 14px
+    rgba(91,223,145,.30);
+
+  animation:
+    correctTap 180ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   CORRECT COMPLETION
+   ========================================================= */
+
+.tile.correct {
+  background: #43c979;
+
+  box-shadow:
+    0 0 18px
+    rgba(67,201,121,.38);
+
+  animation:
+    correctComplete 280ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   WRONG TILE
+   ========================================================= */
+
+.tile.wrong {
+  background: #f04e68;
+
+  box-shadow:
+    0 0 18px
+    rgba(240,78,104,.35);
+
+  animation:
+    wrongShake 320ms ease;
+}
+
+
+/* =========================================================
+   SUCCESS GRID
+   ========================================================= */
+
+.grid.success {
+  animation:
+    successPulse 320ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   CONTROLS
+   ========================================================= */
+
+.controls {
+  min-height: 50px;
+
+  margin-top: 8px;
+
+  display: flex;
+  justify-content: center;
+}
+
+button.action {
+  min-width: 145px;
+  min-height: 46px;
+
+  padding: 10px 20px;
+
+  border: 1px solid #303744;
+  border-radius: 14px;
+
+  background: #1b202a;
+  color: #fff;
+
+  font: inherit;
+
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+
+  transition:
+    transform 120ms
+    cubic-bezier(.2,.8,.2,1),
+    background 140ms ease,
+    box-shadow 140ms ease;
+}
+
+button.action:hover {
+  background: #252c37;
+}
+
+button.action:active {
+  transform: scale(.94);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255,255,255,.04);
+}
+
+
+/* =========================================================
+   GAME OVER
+   ========================================================= */
+
+.game-over {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 20;
+
+  padding:
+    24px 18px
+    max(24px, env(safe-area-inset-bottom));
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(8,10,14,.88);
+
+  backdrop-filter: blur(8px);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 220ms ease;
+}
+
+.game-over.show {
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+.game-over-card {
+  width: min(100%, 340px);
+
+  padding: 26px 20px 20px;
+
+  border: 1px solid #303744;
+  border-radius: 22px;
+
+  background: #151a22;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0,0,0,.45);
+
+  text-align: center;
+
+  transform:
+    translateY(22px)
+    scale(.94);
+
+  opacity: 0;
+
+  transition:
+    transform 300ms
+    cubic-bezier(.2,.8,.2,1),
+    opacity 220ms ease;
+}
+
+.game-over.show .game-over-card {
+  transform:
+    translateY(0)
+    scale(1);
+
+  opacity: 1;
+}
+
+.game-over-icon {
+  font-size: 36px;
+
+  margin-bottom: 5px;
+
+  animation:
+    iconPop 420ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+.game-over-title {
+  margin: 0;
+
+  font-size: 27px;
+  font-weight: 850;
+}
+
+.game-over-subtitle {
+  margin: 5px 0 20px;
+
+  color: #7f899b;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FINAL STATS
+   ========================================================= */
+
+.final-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 7px;
+
+  margin-bottom: 14px;
+}
+
+.final-stat {
+  padding: 10px 5px;
+
+  border-radius: 11px;
+
+  background: #1d232d;
+}
+
+.final-stat-label {
+  display: block;
+
+  color: #707b8d;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.final-stat-value {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 18px;
+  font-weight: 850;
+}
+
+
+/* =========================================================
+   NEW BEST
+   ========================================================= */
+
+.new-best {
+  min-height: 20px;
+
+  margin-bottom: 12px;
+
+  color: #ffd45c;
+
+  font-size: 13px;
+  font-weight: 850;
+
+  opacity: 0;
+}
+
+.new-best.show {
+  opacity: 1;
+
+  animation:
+    bestPop 420ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   SCORE POP
+   ========================================================= */
+
+.stat-value.pop {
+  animation:
+    scorePop 260ms
+    cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes patternReveal {
+
+  0% {
+    opacity: .25;
+    transform: scale(.82);
+  }
+
+  65% {
+    transform: scale(1.07);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes correctTap {
+
+  0% {
+    transform: scale(.82);
+  }
+
+  65% {
+    transform: scale(1.06);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes correctComplete {
+
+  0% {
+    transform: scale(.9);
+  }
+
+  45% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes wrongShake {
+
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+  }
+
+  15% {
+    transform: translateX(-7px) scale(1.03);
+  }
+
+  30% {
+    transform: translateX(7px) scale(1.03);
+  }
+
+  45% {
+    transform: translateX(-6px);
+  }
+
+  60% {
+    transform: translateX(5px);
+  }
+
+  75% {
+    transform: translateX(-3px);
+  }
+
+}
+
+
+@keyframes successPulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.025);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes gridEnter {
+
+  0% {
+    opacity: .25;
+    transform: scale(.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes scorePop {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes messagePop {
+
+  0% {
+    opacity: .4;
+    transform: translateY(3px) scale(.96);
+  }
+
+  60% {
+    transform: translateY(0) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes bestPop {
+
+  0% {
+    transform: scale(.8);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+
+}
+
+
+@keyframes iconPop {
+
+  0% {
+    transform: scale(.6) rotate(-8deg);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.12) rotate(3deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+
+}
+
+
+/* =========================================================
+   SHORT PHONES
+   ========================================================= */
+
+@media (max-height: 700px) {
+
+  .app {
+    padding-top: 12px;
+  }
+
+  .difficulty {
+    margin-top: 10px;
+  }
+
+  .stats {
+    margin-top: 6px;
+  }
+
+  .best-stats {
+    margin-top: 4px;
+  }
+
+  .status {
+    margin-top: 4px;
+  }
+
+  .controls {
+    margin-top: 5px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SHORT PHONES
+   ========================================================= */
+
+@media (max-height: 600px) {
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .difficulty {
+    margin-top: 8px;
+  }
+
+  .difficulty-title {
+    display: none;
+  }
+
+  .difficulty-button {
+    min-height: 40px;
+  }
+
+  .stats {
+    margin-top: 5px;
+  }
+
+  .best-stats {
+    display: none;
+  }
+
+  .status {
+    min-height: 25px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+
+  .controls {
+    min-height: 42px;
+  }
+
+  button.action {
+    min-height: 40px;
+  }
+
+  .grid {
+    --grid-size:
+      min(
+        86vw,
+        330px,
+        calc(100dvh - 270px)
+      );
+  }
+
+}
+
+
+/* =========================================================
+   SMALL WIDTH
+   ========================================================= */
+
+@media (max-height: 600px) {
+
+  .progression {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 360px) {
+
+  .app {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .grid {
+    gap: 5px;
+  }
+
+  .tile {
+    border-radius: 8px;
+  }
+
+  .difficulty-buttons {
+    gap: 5px;
+  }
+
+}

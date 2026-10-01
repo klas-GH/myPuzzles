@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <title>Box Push</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<a href="../index.html" class="home-btn" aria-label="Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5.5 9.5V21h13V9.5"></path>
+  </svg>
+  <span>Home</span>
+</a>
+
+  <!-- =====================================================
+       APP
+       ===================================================== -->
+
+  <main class="app">
+
+
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <header class="header">
+
+      <h1 class="title">
+        Box Push
+      </h1>
+
+      <p class="subtitle">
+        Push every box onto a target
+      </p>
+
+    </header>
+
+
+    <!-- ===================================================
+         STATS
+         =================================================== -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <span class="stat-label">
+          MOVES
+        </span>
+
+        <span
+          id="moves"
+          class="stat-value"
+        >
+          0
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="stat-label">
+          LEVEL
+        </span>
+
+        <span
+          id="level"
+          class="stat-value"
+        >
+          1 / 6
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         LEVEL PROGRESS
+         =================================================== -->
+
+    <div class="progress">
+
+      <div class="progress-top">
+
+        <span>
+          PROGRESS
+        </span>
+
+        <span id="progressText">
+          1 / 6
+        </span>
+
+      </div>
+
+      <div class="progress-track">
+
+        <div
+          id="progressBar"
+          class="progress-bar"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         GAME BOARD
+         =================================================== -->
+
+    <section class="game-area">
+
+      <div
+        id="board"
+        class="board"
+        aria-label="Box Push game board"
+      ></div>
+
+    </section>
+
+
+    <!-- ===================================================
+         DIRECTION CONTROLS
+         =================================================== -->
+
+    <section
+      class="controls"
+      aria-label="Game controls"
+    >
+
+      <button
+        class="control up"
+        data-direction="up"
+        aria-label="Move up"
+      >
+        ▲
+      </button>
+
+      <button
+        class="control left"
+        data-direction="left"
+        aria-label="Move left"
+      >
+        ◀
+      </button>
+
+      <button
+        class="control down"
+        data-direction="down"
+        aria-label="Move down"
+      >
+        ▼
+      </button>
+
+      <button
+        class="control right"
+        data-direction="right"
+        aria-label="Move right"
+      >
+        ▶
+      </button>
+
+    </section>
+
+
+    <!-- ===================================================
+         RESTART
+         =================================================== -->
+
+    <div class="actions">
+
+      <button
+        id="restart"
+        class="restart"
+      >
+        ↻ Restart Level
+      </button>
+
+    </div>
+
+  </main>
+<!-- =====================================================
+     LEVEL SELECT
+     ===================================================== -->
+
+<section
+  id="levelSelect"
+  class="level-select"
+  aria-label="Level Select"
+>
+
+  <div class="level-select-card">
+
+    <h2 class="level-select-title">
+      Select Level
+    </h2>
+
+    <p class="level-select-subtitle">
+      Choose an unlocked level
+    </p>
+
+    <div
+      id="levelGrid"
+      class="level-grid"
+    ></div>
+
+    <button
+      id="continueButton"
+      class="continue-button"
+    >
+      Continue
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LEVEL COMPLETE MODAL
+     ===================================================== -->
+
+<div
+  id="message"
+  class="message"
+  role="dialog"
+  aria-modal="true"
+>
+
+  <div class="message-card">
+
+    <div class="message-icon">
+      🎉
+    </div>
+
+    <h2 class="message-title">
+      Level Complete!
+    </h2>
+
+    <p
+      id="messageText"
+      class="message-text"
+    >
+      Solved!
+    </p>
+
+    <button
+      id="nextButton"
+      class="next-button"
+    >
+      Next Level
+    </button>
+
+  </div>
+
+</div>
+
+
+  
+
+
+  <!-- Main game logic -->
+  <script src="script.js"></script>
+
+</body>
+</html>

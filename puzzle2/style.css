@@ -1,0 +1,498 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  background: #111827;
+
+  font-family: Arial, sans-serif;
+
+  --accent: #a855f7;
+  --board: #374151;
+
+  --off: #374151;
+  --off-border: #4b5563;
+
+  --on: #a855f7;
+  --on-border: #c084fc;
+
+  --glow: rgba(168, 85, 247, 0.7);
+
+  --panel: #1f2937;
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+
+  --win: #4ade80;
+}
+
+.game {
+  width: min(92vw, 400px);
+
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 18px;
+
+  color: var(--text);
+
+  font-size: 28px;
+}
+
+.home-btn {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: 12px;
+
+  z-index: 1000;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 11px;
+
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+
+  background: rgba(15,18,32,.82);
+  color: rgba(255,255,255,.8);
+
+  text-decoration: none;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 4px 18px rgba(0,0,0,.2);
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    color .15s ease;
+}
+
+.home-btn svg {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+  stroke: currentColor;
+
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-btn:active {
+  transform: scale(.93);
+}
+
+.home-btn:hover {
+  background: rgba(255,255,255,.1);
+  color: white;
+}
+
+/* --------------------------------
+   Difficulty
+-------------------------------- */
+
+.difficulty {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 6px;
+
+  margin-bottom: 10px;
+}
+
+.difficulty-button {
+  border: 0;
+  border-radius: 8px;
+
+  padding: 9px 5px;
+
+  background: #374151;
+  color: #9ca3af;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.difficulty-button.active {
+  background: var(--accent);
+
+  color: #ffffff;
+}
+
+.difficulty-button:active {
+  transform: scale(0.96);
+}
+
+
+/* --------------------------------
+   Themes
+-------------------------------- */
+
+.themes {
+  display: none;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 5px;
+
+  margin-bottom: 10px;
+}
+
+.themes.visible {
+  display: grid;
+}
+
+.theme-button {
+  border: 0;
+  border-radius: 7px;
+
+  padding: 7px 3px;
+
+  background: var(--panel);
+  color: var(--text-muted);
+
+  font-size: 12px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.theme-button.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.theme-button.locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.theme-button:active:not(.locked) {
+  transform: scale(0.96);
+}
+
+
+/* --------------------------------
+   Stats
+-------------------------------- */
+
+.stats {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 18px;
+
+  margin-bottom: 12px;
+
+  color: var(--text-muted);
+
+  font-size: 15px;
+  font-weight: bold;
+}
+
+
+/* --------------------------------
+   Board
+-------------------------------- */
+
+.board {
+  width: 100%;
+  aspect-ratio: 1;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 8px;
+
+  padding: 8px;
+
+  background: var(--board);
+
+  border-radius: 14px;
+}
+
+
+/* --------------------------------
+   Lights
+-------------------------------- */
+
+.light {
+  border-radius: 10px;
+
+  background: var(--off);
+  border: 2px solid var(--off-border);
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+
+/* ON */
+
+.light.on {
+  background: var(--on);
+
+  border-color: var(--on-border);
+
+  box-shadow:
+    0 0 12px var(--glow);
+}
+
+
+/* Touch feedback */
+
+.light:active {
+  transform: scale(0.93);
+}
+
+
+
+/* --------------------------------
+   Solve celebration
+-------------------------------- */
+
+.board.solved {
+  animation: solvedPulse 0.7s ease-out;
+}
+
+@keyframes solvedPulse {
+
+  0% {
+    transform: scale(1);
+
+    box-shadow:
+      0 0 0 transparent;
+  }
+
+  30% {
+    transform: scale(1.04);
+
+    box-shadow:
+      0 0 20px var(--glow),
+      0 0 40px var(--glow);
+  }
+
+  60% {
+    transform: scale(1.02);
+
+    box-shadow:
+      0 0 30px var(--glow),
+      0 0 55px var(--glow);
+  }
+
+  100% {
+    transform: scale(1);
+
+    box-shadow:
+      0 0 0 transparent;
+  }
+}
+
+
+/* --------------------------------
+   Win screen
+-------------------------------- */
+
+.win-message {
+  display: none;
+
+  margin-top: 14px;
+  padding: 18px;
+
+  text-align: center;
+
+  background: var(--panel);
+
+  border-radius: 14px;
+
+  border: 1px solid var(--board);
+}
+
+.win-title {
+  margin-bottom: 12px;
+
+  color: var(--win);
+
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.win-moves {
+  color: var(--text-muted);
+
+  font-size: 14px;
+}
+
+.win-moves strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--text);
+
+  font-size: 22px;
+}
+
+.new-puzzle {
+  margin-top: 16px;
+
+  border: 0;
+  border-radius: 9px;
+
+  padding: 10px 18px;
+
+  background: var(--accent);
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.new-puzzle:active {
+  transform: scale(0.95);
+}
+
+
+/* =================================
+   THEMES
+================================= */
+
+
+/* Classic */
+
+body[data-theme="classic"] {
+  --accent: #a855f7;
+  --board: #374151;
+
+  --off: #374151;
+  --off-border: #4b5563;
+
+  --on: #a855f7;
+  --on-border: #c084fc;
+
+  --glow: rgba(168, 85, 247, 0.7);
+
+  --panel: #1f2937;
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+
+  --win: #4ade80;
+}
+
+
+/* Forest */
+
+body[data-theme="forest"] {
+  --accent: #22c55e;
+  --board: #24372b;
+
+  --off: #17231b;
+  --off-border: #35543e;
+
+  --on: #16a34a;
+  --on-border: #4ade80;
+
+  --glow: rgba(34, 197, 94, 0.7);
+
+  --panel: #1d3024;
+  --text: #ffffff;
+  --text-muted: #a7c9ae;
+
+  --win: #bef264;
+}
+
+
+/* Sunset */
+
+body[data-theme="sunset"] {
+  --accent: #f97316;
+  --board: #43251f;
+
+  --off: #241512;
+  --off-border: #61352c;
+
+  --on: #f97316;
+  --on-border: #fb923c;
+
+  --glow: rgba(249, 115, 22, 0.7);
+
+  --panel: #351d19;
+  --text: #ffffff;
+  --text-muted: #fdba74;
+
+  --win: #facc15;
+}
+
+
+/* Ocean */
+
+body[data-theme="ocean"] {
+  --accent: #06b6d4;
+  --board: #173443;
+
+  --off: #10242e;
+  --off-border: #285365;
+
+  --on: #0891b2;
+  --on-border: #22d3ee;
+
+  --glow: rgba(6, 182, 212, 0.7);
+
+  --panel: #12303c;
+  --text: #ffffff;
+  --text-muted: #a5d8e5;
+
+  --win: #67e8f9;
+}
+
+
+
+

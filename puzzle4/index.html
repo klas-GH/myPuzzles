@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0d1016"
+  >
+
+  <title>Color Sort</title>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+<a href="../index.html" class="home-btn" aria-label="Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5.5 9.5V21h13V9.5"></path>
+  </svg>
+  <span>Home</span>
+</a>
+
+  <main class="game">
+
+    <header class="header">
+
+      <h1 class="title">
+        Color Sort
+      </h1>
+
+      <p class="subtitle">
+        Sort each color into its own tube
+      </p>
+
+    </header>
+
+
+    <div class="level">
+      LEVEL
+      <span id="levelNumber">1</span>
+    </div>
+
+
+    <section
+      id="board"
+      class="board"
+      aria-label="Color Sort game board"
+    ></section>
+
+
+    <div
+      id="message"
+      class="message"
+      aria-live="polite"
+    ></div>
+
+
+    <div class="controls">
+
+      <button
+        id="levelsButton"
+        type="button"
+      >
+        Levels
+      </button>
+
+      <button
+        id="restart"
+        type="button"
+      >
+        Restart
+      </button>
+
+    </div>
+
+
+    <div
+      id="levelPanel"
+      class="level-panel hidden"
+    >
+
+      <div class="level-panel-inner">
+
+        <div class="level-panel-header">
+
+          <h2>
+            Select Level
+          </h2>
+
+          <button
+            id="closeLevels"
+            class="close-button"
+            type="button"
+            aria-label="Close level selection"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <div
+          id="levelGrid"
+          class="level-grid"
+        ></div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

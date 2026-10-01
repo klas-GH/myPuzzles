@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>15 Puzzle</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a href="../index.html" class="home-btn" aria-label="Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5.5 9.5V21h13V9.5"></path>
+  </svg>
+  <span>Home</span>
+</a>
+
+
+  <div class="game">
+
+     <h1>15 Puzzle</h1>
+    <div style="color:#60a5fa; margin: 5px;">Arrange the numbers in order</div>
+
+    <!-- Difficulty -->
+
+    <div class="difficulty">
+
+      <button class="difficulty-button" data-size="3">
+        Easy
+      </button>
+
+      <button class="difficulty-button active" data-size="4">
+        Normal
+      </button>
+
+      <button class="difficulty-button" data-size="5">
+        Difficult
+      </button>
+
+<button class="difficulty-button" data-size="4" data-mystery="true">
+  🎲 Mystery
+</button>
+
+
+    </div>
+
+
+    <!-- Theme selector
+         Hidden until a theme is unlocked -->
+
+    <div id="themes" class="themes">
+
+      <button class="theme-button active" data-theme="classic">
+        Classic
+      </button>
+
+      <button class="theme-button locked" data-theme="neon" disabled>
+        🔒 Neon
+      </button>
+
+      <button class="theme-button locked" data-theme="forest" disabled>
+        🔒 Forest
+      </button>
+
+      <button class="theme-button locked" data-theme="sunset" disabled>
+        🔒 Sunset
+      </button>
+
+    </div>
+
+
+    <!-- Controls -->
+
+    <div class="controls">
+
+      <button id="shuffle" class="shuffle">
+        Shuffle
+      </button>
+
+      <div class="stats">
+
+        <div class="best">
+          Best: <span id="bestCount">0</span>
+        </div>
+
+        <div class="moves">
+          Moves: <span id="moveCount">0</span>
+        </div>
+
+      </div>
+
+    </div>
+
+<div id="mysteryGoal" class="mystery-goal"></div>
+
+    <!-- Puzzle -->
+
+    <div id="board" class="board"></div>
+
+
+    <!-- Unlock notification -->
+
+    <div id="unlockMessage" class="unlock-message"></div>
+
+
+    <!-- Win screen -->
+
+    <div id="winMessage" class="win-message">
+
+      <div class="win-title">
+        🎉 Solved!
+      </div>
+
+      <div class="win-stats">
+
+        <div>
+          Moves
+          <strong id="winMoves">0</strong>
+        </div>
+
+        <div>
+          Best
+          <strong id="winBest">0</strong>
+        </div>
+
+      </div>
+
+      <button id="newPuzzle" class="new-puzzle">
+        New Puzzle
+      </button>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- =========================================
+       DOCUMENT SETUP
+       ========================================= -->
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
+
+  <meta
+    name="theme-color"
+    content="#0d1016"
+  >
+
+  <title>Pattern Memory</title>
+
+  <!-- Main stylesheet -->
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+</head>
+
+
+<body>
+
+<a href="../index.html" class="home-btn" aria-label="Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5.5 9.5V21h13V9.5"></path>
+  </svg>
+</a>
+
+
+  <!-- =========================================
+       MAIN APPLICATION
+       ========================================= -->
+
+  <main class="app">
+
+
+    <!-- =======================================
+         HEADER
+         ======================================= -->
+
+    <header class="header">
+
+      <h1 class="title">
+        Pattern Memory
+      </h1>
+
+      <p class="subtitle">
+        Remember the highlighted tiles
+      </p>
+
+    </header>
+
+
+    <!-- =======================================
+         DIFFICULTY SELECTOR
+         ======================================= -->
+
+    <section class="difficulty">
+
+      <p class="difficulty-title">
+        DIFFICULTY
+      </p>
+
+
+      <div class="difficulty-buttons">
+
+        <button
+          class="difficulty-button easy active"
+          data-mode="easy"
+          type="button"
+        >
+          <span class="mode-name">
+            Easy
+          </span>
+
+          <span class="mode-size">
+            4 × 4
+          </span>
+        </button>
+
+
+        <button
+          class="difficulty-button normal"
+          data-mode="normal"
+          type="button"
+        >
+          <span class="mode-name">
+            Normal
+          </span>
+
+          <span class="mode-size">
+            5 × 5
+          </span>
+        </button>
+
+
+        <button
+          class="difficulty-button hard"
+          data-mode="hard"
+          type="button"
+        >
+          <span class="mode-name">
+            Hard
+          </span>
+
+          <span class="mode-size">
+            6 × 6
+          </span>
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         CURRENT GAME STATS
+         ======================================= -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <span class="stat-label">
+          ROUND
+        </span>
+
+        <span
+          id="roundValue"
+          class="stat-value"
+        >
+          1
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="stat-label">
+          SCORE
+        </span>
+
+        <span
+          id="scoreValue"
+          class="stat-value"
+        >
+          0
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="stat-label">
+          STREAK
+        </span>
+
+        <span
+          id="streakValue"
+          class="stat-value"
+        >
+          0
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         BEST SCORE
+         ======================================= -->
+
+    <section class="best-stats">
+
+      <div class="best-stat">
+
+        <span class="best-label">
+          BEST SCORE
+        </span>
+
+        <span
+          id="bestScoreValue"
+          class="best-value"
+        >
+          0
+        </span>
+
+      </div>
+
+
+      <div class="best-stat">
+
+        <span class="best-label">
+          BEST STREAK
+        </span>
+
+        <span
+          id="bestStreakValue"
+          class="best-value"
+        >
+          0
+        </span>
+
+      </div>
+
+    </section>
+
+
+<!-- =======================================
+     PROGRESSION
+     ======================================= -->
+
+<section class="progression">
+
+  <div class="progression-top">
+
+    <span id="progressionLabel">
+      Next milestone
+    </span>
+
+    <span id="progressionRound">
+      5
+    </span>
+
+  </div>
+
+  <div class="progress-track">
+
+    <div
+      id="progressBar"
+      class="progress-bar"
+    ></div>
+
+  </div>
+
+</section>
+
+
+    <!-- =======================================
+         STATUS MESSAGE
+         ======================================= -->
+
+    <section class="status">
+
+      <div
+        id="message"
+        class="message"
+      >
+        Watch carefully...
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         GAME GRID
+         ======================================= -->
+
+    <div class="game-area">
+
+      <section
+        id="grid"
+        class="grid"
+        aria-label="Memory grid"
+      ></section>
+
+    </div>
+
+
+    <!-- =======================================
+         RESTART BUTTON
+         ======================================= -->
+
+    <div class="controls">
+
+      <button
+        id="restart"
+        class="action"
+        type="button"
+      >
+        Restart
+      </button>
+
+    </div>
+
+
+  </main>
+
+
+  <!-- =========================================
+       GAME OVER OVERLAY
+       ========================================= -->
+
+  <div
+    id="gameOver"
+    class="game-over"
+    aria-hidden="true"
+  >
+
+    <div class="game-over-card">
+
+      <div class="game-over-icon">
+        🧠
+      </div>
+
+      <h2 class="game-over-title">
+        Game Over
+      </h2>
+
+      <p class="game-over-subtitle">
+        You missed the pattern.
+      </p>
+
+
+      <!-- Final run statistics -->
+
+      <div class="final-stats">
+
+        <div class="final-stat">
+
+          <span class="final-stat-label">
+            SCORE
+          </span>
+
+          <span
+            id="finalScore"
+            class="final-stat-value"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="final-stat">
+
+          <span class="final-stat-label">
+            STREAK
+          </span>
+
+          <span
+            id="finalStreak"
+            class="final-stat-value"
+          >
+            0
+          </span>
+
+        </div>
+
+
+        <div class="final-stat">
+
+          <span class="final-stat-label">
+            ROUND
+          </span>
+
+          <span
+            id="finalRound"
+            class="final-stat-value"
+          >
+            1
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- New best indicator -->
+
+      <div
+        id="newBest"
+        class="new-best"
+      >
+        🏆 New Best!
+      </div>
+
+    <!-- Milestone message -->
+
+<div
+  id="milestoneMessage"
+  class="milestone-message"
+>
+</div>
+
+
+      <!-- Start a new run -->
+
+      <button
+        id="playAgain"
+        class="action"
+        type="button"
+      >
+        Play Again
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+       ========================================= -->
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

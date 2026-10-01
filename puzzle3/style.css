@@ -1,0 +1,1870 @@
+/* =========================================================
+   COLOR CONNECT
+   STEP 8
+========================================================= */
+
+
+/* =========================================================
+   01. GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --cell: 62px;
+
+    --gap: 5px;
+
+}
+
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #292f3b,
+            #111318 70%
+        );
+
+    color: white;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    user-select: none;
+
+}
+
+
+/* =========================================================
+   02. HEADER
+========================================================= */
+
+.game-header {
+
+    text-align: center;
+
+}
+
+
+h1 {
+
+    margin: 0 0 4px;
+
+    font-size: 28px;
+
+}
+
+
+.level {
+
+    margin-bottom: 12px;
+
+    color: #9ca5b5;
+
+    font-size: 14px;
+
+}
+.home-btn {
+  position: fixed;
+  top: max(12px, env(safe-area-inset-top));
+  left: 12px;
+
+  z-index: 1000;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 8px 11px;
+
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 12px;
+
+  background: rgba(15,18,32,.82);
+  color: rgba(255,255,255,.8);
+
+  text-decoration: none;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 4px 18px rgba(0,0,0,.2);
+
+  transition:
+    transform .15s ease,
+    background .15s ease,
+    color .15s ease;
+}
+
+.home-btn svg {
+  width: 15px;
+  height: 15px;
+
+  fill: none;
+  stroke: currentColor;
+
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-btn:active {
+  transform: scale(.93);
+}
+
+.home-btn:hover {
+  background: rgba(255,255,255,.1);
+  color: white;
+}
+
+
+/* =========================================================
+   03. DIFFICULTY
+========================================================= */
+
+.difficulty {
+
+    display: flex;
+
+    gap: 6px;
+
+    margin-bottom: 18px;
+
+    padding: 4px;
+
+    border-radius: 12px;
+
+    background: #1b1f27;
+
+}
+
+
+.difficulty-btn {
+
+    min-width: 72px;
+
+    padding: 8px 12px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #8d96a5;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+}
+
+
+.difficulty-btn:hover {
+
+    color: white;
+
+}
+
+
+.difficulty-btn.active {
+
+    background: #ffffff;
+
+    color: #111318;
+
+}
+
+
+.difficulty-btn:active {
+
+    transform: scale(.96);
+
+}
+
+
+/* =========================================================
+   04. BOARD
+========================================================= */
+
+#board {
+
+    position: relative;
+
+    display: grid;
+
+    gap: var(--gap);
+
+    touch-action: none;
+
+}
+
+
+/* =========================================================
+   05. CELLS
+========================================================= */
+
+.cell {
+
+    position: relative;
+
+    width: var(--cell);
+
+    height: var(--cell);
+
+    background: #20242d;
+
+    border-radius: 10px;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.04),
+
+        0 2px 5px
+        rgba(0,0,0,.2);
+
+    z-index: 1;
+
+}
+
+
+/* =========================================================
+   06. SVG PATHS
+========================================================= */
+
+#paths {
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    pointer-events: none;
+
+    overflow: visible;
+
+    z-index: 5;
+
+}
+
+
+.path {
+
+    fill: none;
+
+    stroke-linecap: round;
+
+    stroke-linejoin: round;
+
+    filter:
+        drop-shadow(
+            0 2px 2px
+            rgba(0,0,0,.35)
+        );
+
+}
+
+
+.path.preview {
+
+    opacity: .82;
+
+}
+
+
+/* =========================================================
+   07. COLOR DOTS
+========================================================= */
+
+.dot {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width: 28px;
+
+    height: 28px;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    z-index: 10;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,255,255,.08),
+
+        0 3px 8px
+        rgba(0,0,0,.4);
+
+}
+
+
+.dot::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 6px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.25);
+
+}
+
+
+/* =========================================================
+   08. MESSAGE
+========================================================= */
+
+#message {
+
+    min-height: 26px;
+
+    margin-top: 18px;
+
+    color: #aeb6c5;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+}
+
+
+#message.win {
+
+    color: #55e69b;
+
+}
+
+
+/* =========================================================
+   09. MOVES
+========================================================= */
+
+#moves {
+
+    margin-top: 6px;
+
+    color: #7f8999;
+
+    font-size: 14px;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   10. BUTTONS
+========================================================= */
+
+.buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+}
+
+
+.buttons button {
+
+    padding: 10px 18px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    color: #111;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+}
+
+
+.buttons button.secondary {
+
+    background: #303641;
+
+    color: white;
+
+}
+
+
+.buttons button:active {
+
+    transform: scale(.96);
+
+}
+
+
+/* =========================================================
+   11. NORMAL 6×6
+========================================================= */
+
+body.board-normal {
+
+    --cell: 55px;
+
+    --gap: 4px;
+
+}
+
+
+/* =========================================================
+   12. HARD 8×8
+========================================================= */
+
+body.board-hard {
+
+    --cell: 40px;
+
+    --gap: 3px;
+
+}
+
+
+/* =========================================================
+   13. NORMAL DOT
+========================================================= */
+
+body.board-normal .dot {
+
+    width: 25px;
+
+    height: 25px;
+
+}
+
+
+/* =========================================================
+   14. HARD DOT
+========================================================= */
+
+body.board-hard .dot {
+
+    width: 21px;
+
+    height: 21px;
+
+}
+
+
+body.board-hard .dot::after {
+
+    inset: 4px;
+
+}
+
+
+/* =========================================================
+   15. SMALL PHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+    :root {
+
+        --cell: 55px;
+
+        --gap: 4px;
+
+    }
+
+
+    body.board-normal {
+
+        --cell: 45px;
+
+        --gap: 3px;
+
+    }
+
+
+    body.board-hard {
+
+        --cell: 32px;
+
+        --gap: 2px;
+
+    }
+
+
+    h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .difficulty-btn {
+
+        min-width: 65px;
+
+        padding: 7px 8px;
+
+    }
+
+}
+
+
+/* =========================================================
+   16. VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 330px) {
+
+    :root {
+
+        --cell: 47px;
+
+        --gap: 3px;
+
+    }
+
+
+    body.board-normal {
+
+        --cell: 39px;
+
+        --gap: 3px;
+
+    }
+
+
+    body.board-hard {
+
+        --cell: 28px;
+
+        --gap: 2px;
+
+    }
+
+
+    .difficulty-btn {
+
+        min-width: 58px;
+
+        font-size: 12px;
+
+    }
+
+}
+
+/* =========================================================
+   17. WIN SCREEN
+========================================================= */
+
+.win-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(8, 10, 15, .78);
+
+    backdrop-filter:
+        blur(8px);
+
+    z-index: 100;
+
+}
+
+
+.win-screen.show {
+
+    display: flex;
+
+}
+
+
+.win-card {
+
+    width: min(
+        330px,
+        90vw
+    );
+
+    padding: 30px 24px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292f3b,
+            #191c23
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
+
+    text-align: center;
+
+    animation:
+        winPop .25s ease-out;
+
+}
+
+
+@keyframes winPop {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.85);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.win-icon {
+
+    font-size: 48px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.win-card h2 {
+
+    margin: 0;
+
+    font-size: 27px;
+
+    color: #fff;
+
+}
+
+
+.win-card p {
+
+    margin: 7px 0 20px;
+
+    color: #9fa8b7;
+
+}
+
+
+.win-stats {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    margin-bottom: 20px;
+
+    color: #8f99a9;
+
+    font-size: 13px;
+
+}
+
+
+.win-stats strong {
+
+    color: #55e69b;
+
+    font-size: 22px;
+
+}
+
+
+#winNext {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: #55e69b;
+
+    color: #101713;
+
+    font-size: 15px;
+
+    font-weight: 750;
+
+    cursor: pointer;
+
+}
+
+
+#winNext:active {
+
+    transform:
+        scale(.97);
+
+}
+
+/* =========================================================
+   18. SCORE
+========================================================= */
+
+#score,
+#bestScore {
+
+    margin-top: 5px;
+
+    color: #8f99a9;
+
+    font-size: 14px;
+
+    text-align: center;
+
+}
+
+
+#scoreCount {
+
+    color: #ffd34d;
+
+    font-weight: 750;
+
+}
+
+
+#bestScoreCount {
+
+    color: #55e69b;
+
+    font-weight: 750;
+
+}
+
+
+/* =========================================================
+   19. NEW BEST
+========================================================= */
+
+#newBest {
+
+    display: none;
+
+    margin-bottom: 18px;
+
+    color: #ffd34d;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+}
+
+
+#newBest.show {
+
+    display: block;
+
+}
+
+
+/* Win screen stats */
+
+.win-stats {
+
+    gap: 2px;
+
+}
+
+
+.win-stats strong {
+
+    margin-bottom: 8px;
+
+}
+
+/* =========================================================
+   20. SOUND + HAPTICS
+========================================================= */
+
+.feedback-settings {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 10px;
+
+}
+
+
+.feedback-btn {
+
+    padding: 7px 10px;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background: #1b1f27;
+
+    color: #8f99a9;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+}
+
+
+.feedback-btn:hover {
+
+    color: white;
+
+}
+
+
+.feedback-btn:active {
+
+    transform: scale(.96);
+
+}
+
+
+.feedback-btn.active {
+
+    color: #55e69b;
+
+}
+
+/* =========================================================
+   21. ACHIEVEMENTS BUTTON
+========================================================= */
+
+.achievements-button {
+
+    margin-top: 10px;
+
+    padding: 9px 15px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: #252b35;
+
+    color: #ffd34d;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.achievements-button:active {
+
+    transform: scale(.96);
+
+}
+
+
+/* =========================================================
+   22. ACHIEVEMENT PANEL
+========================================================= */
+
+.achievement-panel {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(8, 10, 15, .82);
+
+    backdrop-filter:
+        blur(8px);
+
+    z-index: 150;
+
+}
+
+
+.achievement-panel.show {
+
+    display: flex;
+
+}
+
+
+.achievement-card {
+
+    width: min(
+        380px,
+        92vw
+    );
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292f3b,
+            #191c23
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.55);
+
+}
+
+
+.achievement-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+}
+
+
+.achievement-header h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+}
+
+
+#closeAchievements {
+
+    width: 34px;
+
+    height: 34px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #303641;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   23. ACHIEVEMENT ITEMS
+========================================================= */
+
+.achievement-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 9px;
+
+    padding: 12px;
+
+    border-radius: 13px;
+
+    background: #20242d;
+
+}
+
+
+.achievement-item.locked {
+
+    opacity: .42;
+
+}
+
+
+.achievement-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #303641;
+
+    font-size: 22px;
+
+}
+
+
+.achievement-item.unlocked
+.achievement-icon {
+
+    background: rgba(
+        85,
+        230,
+        155,
+        .12
+    );
+
+}
+
+
+.achievement-info {
+
+    min-width: 0;
+
+}
+
+
+.achievement-name {
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 750;
+
+}
+
+
+.achievement-description {
+
+    margin-top: 2px;
+
+    color: #8f99a9;
+
+    font-size: 12px;
+
+}
+
+
+.achievement-reward {
+
+    margin-top: 3px;
+
+    color: #ffd34d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   24. ACHIEVEMENT POPUP
+========================================================= */
+
+.achievement-popup {
+
+    position: fixed;
+
+    left: 50%;
+
+    top: 18px;
+
+    transform:
+        translate(-50%, -140%);
+
+    opacity: 0;
+
+    z-index: 300;
+
+    pointer-events: none;
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+
+}
+
+
+.achievement-popup.show {
+
+    transform:
+        translate(-50%, 0);
+
+    opacity: 1;
+
+}
+
+
+.achievement-popup-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 280px;
+
+    padding: 12px 16px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #303743,
+            #1d222a
+        );
+
+    border:
+        1px solid
+        rgba(255,211,77,.25);
+
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.45);
+
+}
+
+
+.achievement-popup-icon {
+
+    font-size: 27px;
+
+}
+
+
+.achievement-popup-title {
+
+    color: #ffd34d;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+}
+
+
+#achievementPopupName {
+
+    margin-top: 2px;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+/* =========================================================
+   GAME STATS ROW
+========================================================= */
+
+.game-stats {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 8px;
+
+    color: #7f8999;
+
+    font-size: 14px;
+
+}
+
+
+.game-stats span {
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+}
+
+/* =========================================================
+   25. THEMES BUTTON
+========================================================= */
+
+.themes-button {
+
+    margin-top: 8px;
+
+    padding: 9px 15px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background: #252b35;
+
+    color: #b66cff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+.themes-button:active {
+
+    transform: scale(.96);
+
+}
+
+
+/* =========================================================
+   26. THEME PANEL
+========================================================= */
+
+.theme-panel {
+
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(8, 10, 15, .82);
+
+    backdrop-filter:
+        blur(8px);
+
+    z-index: 160;
+
+}
+
+
+.theme-panel.show {
+
+    display: flex;
+
+}
+
+
+.theme-card {
+
+    width: min(
+        390px,
+        92vw
+    );
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #292f3b,
+            #191c23
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.55);
+
+}
+
+
+.theme-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+
+}
+
+
+.theme-header h2 {
+
+    margin: 0;
+
+    font-size: 22px;
+
+}
+
+
+#closeThemes {
+
+    width: 34px;
+
+    height: 34px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #303641;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   27. THEME ITEMS
+========================================================= */
+
+.theme-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 9px;
+
+    padding: 12px;
+
+    border: 2px solid transparent;
+
+    border-radius: 13px;
+
+    background: #20242d;
+
+    cursor: pointer;
+
+}
+
+
+.theme-item.locked {
+
+    opacity: .42;
+
+    cursor: default;
+
+}
+
+
+.theme-item.selected {
+
+    border-color: #55e69b;
+
+}
+
+
+.theme-preview {
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: #20242d;
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.08);
+
+}
+
+
+.theme-info {
+
+    min-width: 0;
+
+}
+
+
+.theme-name {
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 750;
+
+}
+
+
+.theme-description {
+
+    margin-top: 3px;
+
+    color: #8f99a9;
+
+    font-size: 12px;
+
+}
+
+
+.theme-status {
+
+    margin-top: 4px;
+
+    color: #55e69b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   28. THEME PREVIEWS
+========================================================= */
+
+.theme-preview.default {
+
+    background:
+        linear-gradient(
+            135deg,
+            #292f3b,
+            #111318
+        );
+
+}
+
+
+.theme-preview.ocean {
+
+    background:
+        linear-gradient(
+            135deg,
+            #073b5c,
+            #0a7892
+        );
+
+}
+
+
+.theme-preview.sunset {
+
+    background:
+        linear-gradient(
+            135deg,
+            #5b1e42,
+            #e66b35
+        );
+
+}
+
+
+.theme-preview.neon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #170d35,
+            #00d4ff
+        );
+
+}
+
+
+.theme-preview.forest {
+
+    background:
+        linear-gradient(
+            135deg,
+            #102d20,
+            #39845c
+        );
+
+}
+
+
+.theme-preview.gold {
+
+    background:
+        linear-gradient(
+            135deg,
+            #30230b,
+            #b88628
+        );
+
+}
+
+/* =========================================================
+   29. OCEAN THEME
+========================================================= */
+
+body.theme-ocean {
+
+    background:
+        radial-gradient(
+            circle at top,
+            #145b78,
+            #061923 72%
+        );
+
+}
+
+
+body.theme-ocean .cell {
+
+    background: #12394a;
+
+}
+
+
+body.theme-ocean .difficulty {
+
+    background: #0c2a39;
+
+}
+
+
+body.theme-ocean .buttons button.secondary {
+
+    background: #17495d;
+
+}
+
+
+/* =========================================================
+   30. SUNSET THEME
+========================================================= */
+
+body.theme-sunset {
+
+    background:
+        radial-gradient(
+            circle at top,
+            #71364f,
+            #21121c 72%
+        );
+
+}
+
+
+body.theme-sunset .cell {
+
+    background: #3a2630;
+
+}
+
+
+body.theme-sunset .difficulty {
+
+    background: #2d1b26;
+
+}
+
+
+body.theme-sunset .buttons button.secondary {
+
+    background: #593246;
+
+}
+
+
+/* =========================================================
+   31. NEON THEME
+========================================================= */
+
+body.theme-neon {
+
+    background:
+        radial-gradient(
+            circle at top,
+            #28204f,
+            #080612 72%
+        );
+
+}
+
+
+body.theme-neon .cell {
+
+    background: #17132a;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(0,255,255,.08),
+
+        0 0 8px
+        rgba(0,212,255,.08);
+
+}
+
+
+body.theme-neon .difficulty {
+
+    background: #151027;
+
+}
+
+
+body.theme-neon .buttons button.secondary {
+
+    background: #29204a;
+
+}
+
+
+/* =========================================================
+   32. FOREST THEME
+========================================================= */
+
+body.theme-forest {
+
+    background:
+        radial-gradient(
+            circle at top,
+            #315e45,
+            #0b1911 72%
+        );
+
+}
+
+
+body.theme-forest .cell {
+
+    background: #1d3427;
+
+}
+
+
+body.theme-forest .difficulty {
+
+    background: #14251b;
+
+}
+
+
+body.theme-forest .buttons button.secondary {
+
+    background: #294b36;
+
+}
+
+
+/* =========================================================
+   33. GOLD THEME
+========================================================= */
+
+body.theme-gold {
+
+    background:
+        radial-gradient(
+            circle at top,
+            #60491b,
+            #171208 72%
+        );
+
+}
+
+
+body.theme-gold .cell {
+
+    background: #332915;
+
+}
+
+
+body.theme-gold .difficulty {
+
+    background: #29200f;
+
+}
+
+
+body.theme-gold .buttons button.secondary {
+
+    background: #594519;
+
+}
+
+
+body.theme-gold #message.win {
+
+    color: #ffd34d;
+
+}
+
+
+body.theme-gold .level {
+
+    color: #c9ad65;
+
+}
+
+/* =========================================================
+   ACHIEVEMENTS + THEMES ROW
+========================================================= */
+
+.extra-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+}
+
+
+.extra-buttons .achievements-button,
+.extra-buttons .themes-button {
+
+    margin-top: 0;
+
+}
+
+

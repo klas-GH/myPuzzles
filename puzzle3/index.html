@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Color Connect</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+<a href="../index.html" class="home-btn" aria-label="Home">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M3 10.5 12 3l9 7.5"></path>
+    <path d="M5.5 9.5V21h13V9.5"></path>
+  </svg>
+  <span>Home</span>
+</a>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="game-header">
+
+        <h1>Color Connect</h1>
+
+        <div
+            id="level"
+            class="level"
+        >
+            Easy · 5×5 · 5 Pairs
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DIFFICULTY
+    ====================================================== -->
+
+    <div class="difficulty">
+
+        <button
+            class="difficulty-btn active"
+            data-difficulty="easy"
+        >
+            Easy
+        </button>
+
+        <button
+            class="difficulty-btn"
+            data-difficulty="normal"
+        >
+            Normal
+        </button>
+
+        <button
+            class="difficulty-btn"
+            data-difficulty="hard"
+        >
+            Hard
+        </button>
+
+    </div>
+
+
+
+<!-- =====================================================
+     ACHIEVEMENTS + THEMES
+====================================================== -->
+
+<div class="extra-buttons">
+
+    <button
+        id="achievementsButton"
+        class="achievements-button"
+        type="button"
+    >
+        🏆 Achievements
+    </button>
+
+
+    <button
+        id="themesButton"
+        class="themes-button"
+        type="button"
+    >
+        🎨 Themes
+    </button>
+
+</div>
+
+
+
+<div
+    id="achievementPanel"
+    class="achievement-panel"
+>
+
+    <div class="achievement-card">
+
+        <div class="achievement-header">
+
+            <h2>🏆 Achievements</h2>
+
+            <button
+                id="closeAchievements"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="achievementList"></div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     THEMES
+====================================================== -->
+
+
+
+<div
+    id="themePanel"
+    class="theme-panel"
+>
+
+    <div class="theme-card">
+
+        <div class="theme-header">
+
+            <h2>🎨 Themes</h2>
+
+            <button
+                id="closeThemes"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div id="themeList"></div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     SOUND + HAPTICS
+====================================================== -->
+
+<div class="feedback-settings">
+
+    <button
+        id="soundToggle"
+        class="feedback-btn"
+        type="button"
+    >
+        🔊 Sound ON
+    </button>
+
+    <button
+        id="hapticToggle"
+        class="feedback-btn"
+        type="button"
+    >
+        📳 Haptics ON
+    </button>
+
+</div>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <main>
+
+        <div id="board">
+
+            <svg id="paths"></svg>
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGE
+        ================================================== -->
+
+        <div id="message">
+            Connect all colors
+        </div>
+
+
+
+
+<!-- =================================================
+     SCORE + BEST + MOVES
+================================================== -->
+
+<div class="game-stats">
+
+    <div id="score">
+        Score:
+        <span id="scoreCount">0</span>
+    </div>
+
+    <div id="bestScore">
+        Best:
+        <span id="bestScoreCount">1000</span>
+    </div>
+
+    <div id="moves">
+        Moves:
+        <span id="moveCount">0</span>
+    </div>
+
+</div>
+
+
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
+
+        <div class="buttons">
+
+            <button id="reset">
+                Reset
+            </button>
+
+            <button
+                id="newPuzzle"
+                class="secondary"
+            >
+                New Puzzle
+            </button>
+
+        </div>
+
+    </main>
+
+<!-- =====================================================
+     ACHIEVEMENT UNLOCK POPUP
+====================================================== -->
+
+<div
+    id="achievementPopup"
+    class="achievement-popup"
+>
+
+    <div class="achievement-popup-card">
+
+        <div class="achievement-popup-icon">
+            🏆
+        </div>
+
+        <div class="achievement-popup-title">
+            Achievement Unlocked!
+        </div>
+
+        <div id="achievementPopupName">
+            First Win
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================================
+     WIN SCREEN
+====================================================== -->
+
+<div
+    id="winScreen"
+    class="win-screen"
+>
+
+    <div class="win-card">
+
+        <div class="win-icon">
+            🎉
+        </div>
+
+        <h2>
+            Puzzle Solved!
+        </h2>
+
+        <p>
+            Great job!
+        </p>
+
+        <div class="win-stats">
+
+    <span>
+        Score
+    </span>
+
+    <strong id="winScore">
+        0
+    </strong>
+
+    <span>
+        Best
+    </span>
+
+    <strong id="winBest">
+        0
+    </strong>
+
+    <span>
+        Moves
+    </span>
+
+    <strong id="winMoves">
+        0
+    </strong>
+
+</div>
+
+<div id="newBest">
+    🏆 NEW BEST!
+</div>
+
+
+        <button id="winNext">
+            Next Puzzle
+        </button>
+
+    </div>
+
+</div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
