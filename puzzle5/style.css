@@ -38,6 +38,7 @@ body {
   user-select: none;
   overscroll-behavior: none;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 
@@ -568,7 +569,7 @@ body {
     min(
       88vw,
       360px,
-      calc(100dvh - 350px)
+      calc(100dvh - 440px)
     );
 
   width: var(--grid-size);
@@ -1254,7 +1255,7 @@ button.action:active {
       min(
         86vw,
         330px,
-        calc(100dvh - 270px)
+        calc(100dvh - 340px)
       );
   }
 
